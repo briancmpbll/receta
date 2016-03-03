@@ -23,7 +23,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.expect_with :rspec do |c|
-    c.syntax = :expect
+    c.syntax = [:should, :expect]
   end
 
   config.before(:suite) do

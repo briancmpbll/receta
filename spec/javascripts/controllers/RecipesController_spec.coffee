@@ -57,8 +57,7 @@ describe "RecipesController", ->
         expect(scope.recipes).toEqualData(recipes)
 
   describe 'search()', ->
-    beforeEach ->
-      setupController()
+    beforeEach(setupController())
 
     it 'redirects to itself with a keyword param', ->
       keywords = 'foo'

@@ -53,10 +53,10 @@ describe RecipesController do
     subject(:results) { JSON.parse(response.body) }
 
     context 'when the recipe exists' do
-      let(:recipe) {
+      let(:recipe) do
         Recipe.create!(name: 'Baked Potato w/ Cheese',
                        instructions: 'Nuke for 20 minutes; top with cheese')
-      }
+      end
       let(:recipe_id) { recipe.id }
 
       it { expect(response.status).to eq(200) }
@@ -69,5 +69,32 @@ describe RecipesController do
       let(:recipe_id) { -9999 }
       it { expect(response.status).to eq(404) }
     end
+  end
+
+  describe 'create' do
+    before do
+      xhr :post, :create, format: :json, recipe: {
+        name: 'Toast',
+        instructions: 'Add bread to toaster, push lever'
+      }
+    end
+
+    it { expect(response.status).to eq(201) }
+    it { expect(Recipe.last.name).to eq('Toast') }
+    it { expect(Recipe.last.instructions).to eq('Add bread to toaster, push lever') }
+  end
+
+  describe 'destroy' do
+    let :recipe_id do
+      Recipe.create!(name: 'Baked Potato w/ Cheese',
+                     instructions: 'Nuke for 20 minutes; top with cheese').id
+    end
+
+    before do
+      xhr :delete, :destroy, format: :json, id: recipe_id
+    end
+
+    it { expect(response.status).to eq(204) }
+    it { expect(Recipe.find_by_id(recipe_id)).to be_nil }
   end
 end

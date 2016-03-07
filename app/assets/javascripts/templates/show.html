@@ -10,7 +10,13 @@
     </header>
     <p class="panel-body">{{recipe.instructions}}</p>
   </article>
-  <button class="btn btn-default" ng-click="back()">
-    &larr; Back
-  </button>
+  <section>
+    <div class="col-md-3">
+      <button class="btn btn-default" ng-click="back()">&larr; Back</button>
+    </div>
+    <div class="col-md-9 text-right">
+      <button class="btn btn-info" ng-click="edit()">Edit</button>
+      <button class="btn btn-danger" ng-click="delete()">Delete</button>
+    </div>
+  </section>
 </section>
